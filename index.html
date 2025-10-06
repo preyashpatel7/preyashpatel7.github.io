@@ -135,10 +135,25 @@
         }
         
         .profile-title {
-            color: var(--text-secondary);
-            font-size: 1.1rem; /* Increased from 0.9rem */
-            margin-bottom: 15px;
-        }
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            height: 1.5em; /* keep container height steady */
+            overflow: hidden;
+            }
+
+            .cursor {
+            display: inline-block;
+            font-weight: bold;
+            color: var(--accent, #4fa3ff); /* optional accent color */
+            animation: blink 1.5s steps(1) infinite;
+            }
+
+            @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0; }
+            }
+
         
         .nav-menu {
             list-style: none;
@@ -477,7 +492,9 @@
             <div class="profile">
                 <img src="profile.jpeg" alt="Preyash Patel" class="profile-img">
                 <h1 class="profile-name">Preyash Patel</h1>
-                <p class="profile-title">Machine Learning Engineer</p>
+                <p class="profile-title">
+                    <span id="animated-title"></span><span class="cursor">|</span>
+                </p> 
             </div>
             
             <ul class="nav-menu">
@@ -790,6 +807,50 @@
                 });
             });
         });
+    </script>
+
+    <script>
+        const titles = [
+        "Machine Learning Engineer",
+        "Software Developer"
+        ]; // you can add as many titles as you like
+        
+        const typingSpeed = 100;   // milliseconds per character
+        const pauseBetween = 1500;  // pause after full word before deleting
+        
+        let titleIndex = 0;
+        let charIndex = 0;
+        let typingForward = true;
+        
+        const animatedTitle = document.getElementById("animated-title");
+        
+        function type() {
+        const currentTitle = titles[titleIndex];
+        
+        if (typingForward) {
+            // Type forward
+            animatedTitle.textContent = currentTitle.slice(0, charIndex + 1);
+            charIndex++;
+            if (charIndex === currentTitle.length) {
+            typingForward = false;
+            setTimeout(type, pauseBetween);
+            return;
+            }
+        } else {
+            // Delete
+            animatedTitle.textContent = currentTitle.slice(0, charIndex - 1);
+            charIndex--;
+            if (charIndex === 0) {
+            typingForward = true;
+            titleIndex = (titleIndex + 1) % titles.length;
+            }
+        }
+        
+        setTimeout(type, typingSpeed);
+        }
+        
+        // Start typing animation
+        type();
     </script>
 </body>
 </html>
