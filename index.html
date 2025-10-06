@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preyash Patel | Machine Learning Engineer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Light theme variables */
+            --light-bg-primary: #f8f9fa;
+            --light-bg-secondary: #ffffff;
+            --light-text-primary: #212529;
+            --light-text-secondary: #6c757d;
+            --light-border: #e9ecef;
+            --light-accent: #212529; /* Changed from #0d6efd to black */
+            --light-card-bg: #ffffff;
+            --light-card-shadow: rgba(0, 0, 0, 0.05);
+            --light-sidebar-bg: #f8f9fa;
+            
+            /* Dark theme variables */
+            --dark-bg-primary: #1e1e2d;
+            --dark-bg-secondary: #252538;
+            --dark-text-primary: #e9ecef;
+            --dark-text-secondary: #adb5bd;
+            --dark-border: #343a40;
+            --dark-accent: #e9ecef; /* Changed from #6ea8fe to light color for dark mode */
+            --dark-card-bg: #252538;
+            --dark-card-shadow: rgba(0, 0, 0, 0.3);
+            --dark-sidebar-bg: #252538;
+        }
+        
+        [data-theme="light"] {
+            --bg-primary: var(--light-bg-primary);
+            --bg-secondary: var(--light-bg-secondary);
+            --text-primary: var(--light-text-primary);
+            --text-secondary: var(--light-text-secondary);
+            --border: var(--light-border);
+            --accent: var(--light-accent);
+            --card-bg: var(--light-card-bg);
+            --card-shadow: var(--light-card-shadow);
+            --sidebar-bg: var(--light-sidebar-bg);
+        }
+        
+        [data-theme="dark"] {
+            --bg-primary: var(--dark-bg-primary);
+            --bg-secondary: var(--dark-bg-secondary);
+            --text-primary: var(--dark-text-primary);
+            --text-secondary: var(--dark-text-secondary);
+            --border: var(--dark-border);
+            --accent: var(--dark-accent);
+            --card-bg: var(--dark-card-bg);
+            --card-shadow: var(--dark-card-shadow);
+            --sidebar-bg: var(--dark-sidebar-bg);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+        
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            padding: 30px 20px;
+            border-right: 1px solid var(--border);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-img {
+            width: 150px; /* Increased from 120px */
+            height: 150px; /* Increased from 120px */
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 5px solid var(--border);
+            background-color: var(--bg-primary); /* Changed from #ccc */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .profile-name {
+            font-size: 2rem; /* Increased from 1.5rem */
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .profile-title {
+            color: var(--text-secondary);
+            font-size: 1.1rem; /* Increased from 0.9rem */
+            margin-bottom: 15px;
+        }
+        
+        .nav-menu {
+            list-style: none;
+            margin-top: 20px;
+            flex-grow: 1;
+        }
+        
+        .nav-item {
+            margin-bottom: 10px;
+        }
+        
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            background-color: var(--accent);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .nav-link i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 15px;
+        }
+        
+        .social-link {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            transition: color 0.2s ease;
+        }
+        
+        .social-link:hover {
+            color: var(--accent);
+        }
+        
+        .theme-toggle {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.2s ease;
+        }
+        
+        .theme-toggle-btn:hover {
+            color: var(--accent);
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            color: var(--text-primary); /* Ensure heading color is consistent */
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 6px 15px var(--card-shadow);
+            transform: translateY(-2px);
+        }
+        
+        /* About Section */
+        .about-content p {
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .skill-category h3 {
+            color: var(--text-primary); /* Changed from accent to primary text color */
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .skill-list {
+            list-style-type: none;
+        }
+        
+        .skill-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .skill-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        /* Experience Section */
+        .experience-item {
+            margin-bottom: 40px;
+        }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .job-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .company {
+            font-size: 1.1rem;
+            color: var(--text-primary); /* Changed from accent to primary text */
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .date {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .job-section {
+            margin-top: 20px;
+        }
+        
+        .job-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+        
+        .job-list {
+            list-style-type: none;
+        }
+        
+        .job-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .job-list li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        
+        .project-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-primary); /* Changed from accent to primary text */
+            font-weight: 600;
+        }
+        
+        .project-description {
+            margin-bottom: 15px;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .project-tag {
+            background-color: var(--bg-primary);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Education Section */
+        .education-item {
+            margin-bottom: 20px;
+        }
+        
+        .degree {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .school {
+            font-size: 1.1rem;
+            color: var(--text-primary); /* Changed from accent to primary text */
+            margin-bottom: 5px;
+        }
+        
+        /* Contact Section */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-item i {
+            width: 30px;
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+        
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 20px;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .container {
+                flex-direction: column;
+            }
+            
+            .profile-img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .nav-menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .nav-item {
+                margin-bottom: 0;
+            }
+            
+            .nav-link {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .nav-link i {
+                margin-right: 5px;
+            }
+            
+            .social-links {
+                margin-top: 15px;
+            }
+            
+            .projects-grid, 
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile">
+                <!-- Completely removed the profile-img div -->
+                <h1 class="profile-name">Preyash Patel</h1>
+                <p class="profile-title">Machine Learning Engineer</p>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">
+                        <i class="fas fa-user"></i> About
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#skills" class="nav-link">
+                        <i class="fas fa-code"></i> Skills
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#experience" class="nav-link">
+                        <i class="fas fa-briefcase"></i> Experience
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#projects" class="nav-link">
+                        <i class="fas fa-project-diagram"></i> Projects
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#education" class="nav-link">
+                        <i class="fas fa-graduation-cap"></i> Education
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="theme-toggle">
+                <button id="light-toggle" class="theme-toggle-btn" title="Switch to light mode">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <span>|</span>
+                <button id="dark-toggle" class="theme-toggle-btn" title="Switch to dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/preyash-patel-51804a237" class="social-link" target="_blank">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/preyashpatel7" class="social-link" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:preyashp2020@gmail.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="tel:562-939-8100" class="social-link">
+                    <i class="fas fa-phone"></i>
+                </a>
+            </div>
+            
+            <div class="footer">
+                &copy; 2025 Preyash Patel
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- About Section -->
+            <section id="about" class="section">
+                <h2 class="section-title">About Me</h2>
+                <div class="card about-content">
+                    <p>Machine Learning Engineer with 3+ years specializing in developing and optimizing NLP and Semantic Search services.</p>
+                    <p> </p>
+                    <p> </p>
+                </div>
+            </section>
+            
+            <!-- Skills Section -->
+            <section id="skills" class="section">
+                <h2 class="section-title">Skills</h2>
+                <div class="card">
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h3>Generative AI</h3>
+                            <ul class="skill-list">
+                                <li>Gemini, Open-Source LLMs</li>
+                                <li>RAG, RAGAS, Langchain, Llama-Index</li>
+                                <li>VectorDB, sentence-transformers</li>
+                                <li>Transformers</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h3>NLP & Search</h3>
+                            <ul class="skill-list">
+                                <li>BM25, Reciprocal Rank Fusion</li>
+                                <li>GPT-based query expansion</li>
+                                <li>Semantic search optimization</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h3>Model Training & Optimization</h3>
+                            <ul class="skill-list">
+                                <li>Optuna, TensorFlow,PyTorch, Transformers</li>
+                                <li>scikit-learn, SageMaker, Vertex AI</li>
+                                <li>PEFT, SFTT, QLoRA, Quantization</li>
+                                <li>Distributed training</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h3>ML Serving</h3>
+                            <ul class="skill-list">
+                                <li>ONNX, LitGPT, FastAPI</li>
+                                <li>Vertex AI Endpoints, Sagemaker Endpoints</li>
+                                <li>AWS Lambda, ECS, GCP Cloud Run</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h3>Data Handling</h3>
+                            <ul class="skill-list">
+                                <li>pandas, polars, Pyspark</li>
+                                <li>numpy, SQL, FAISS</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="skill-category">
+                            <h3>DevOps & Deployment</h3>
+                            <ul class="skill-list">
+                                <li>Mlflow, Kubeflow, Vertex AI Model Registry, SageMaker Model Registry</li>
+                                <li>Cloud Build, API Gateway, Github Actions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Experience Section -->
+            <section id="experience" class="section">
+                <h2 class="section-title">Experience</h2>
+                
+                <div class="card experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="job-title">Software Developer (AI/ML)</h3>
+                            <div class="company">Tata Consultancy Services</div>
+                        </div>
+                        <div class="date">Feb 2022 - Present</div>
+                    </div>
+                    
+                    <div class="job-section">
+                        <h4 class="job-section-title">Work Example 1</h4>
+                        <ul class="job-list">
+                            <li> </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="job-section">
+                        <h4 class="job-section-title">Work Example 2</h4>
+                        <ul class="job-list">
+                            <li> </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="job-section">
+                        <h4 class="job-section-title">Work Example 3</h4>
+                        <ul class="job-list">
+                            <li> </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="job-section">
+                        <h4 class="job-section-title">Work Example 4</h4>
+                        <ul class="job-list">
+                            <li> </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <h3 class="job-title">Software Developer</h3>
+                            <div class="company">New Jersey Institute of Technology</div>
+                        </div>
+                        <div class="date">March 2021 - August 2021</div>
+                    </div>
+                    
+                    <div class="job-section">
+                        <h4 class="job-section-title">Work Example 1</h4>
+                        <ul class="job-list">
+                            <li> </li>
+                        </ul>
+                    </div>
+                </div>
+    
+            </section>
+            
+            <!-- Projects Section -->
+            <section id="projects" class="section">
+                <h2 class="section-title">Projects</h2>
+                <div class="projects-grid">
+                    <div class="card">
+                        <h3 class="project-title">Project 1</h3>
+                        <p class="project-description">Project Description</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Tech Stack 1</span>
+                            <span class="project-tag">Tech Stack 2</span>
+                            <span class="project-tag">Tech Stack 3</span>
+                            <span class="project-tag">Tech Stack 4</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="project-title">Project 2</h3>
+                        <p class="project-description">Project Description</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Tech Stack 1</span>
+                            <span class="project-tag">Tech Stack 2</span>
+                            <span class="project-tag">Tech Stack 3</span>
+                            <span class="project-tag">Tech Stack 4</span>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="project-title">Project 3</h3>
+                        <p class="project-description">Project Description</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Tech Stack 1</span>
+                            <span class="project-tag">Tech Stack 2</span>
+                            <span class="project-tag">Tech Stack 3</span>
+                            <span class="project-tag">Tech Stack 4</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Education Section -->
+            <section id="education" class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="card">
+                    <div class="education-item">
+                        <h3 class="degree">Master of Science in Computer Science</h3>
+                        <div class="school">New Jersey Institute of Technology, Newark, NJ</div>
+                        <div class="date">December 2021</div>
+                    </div>
+                    
+                    <div class="education-item">
+                        <h3 class="degree">Bachelor of Technology Computer Science</h3>
+                        <div class="school">Parul University, India</div>
+                        <div class="date">June 2019</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Contact Section -->
+            <section id="contact" class="section">
+                <h2 class="section-title">Contact</h2>
+                <div class="card">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:preyashp2020@gmail.com">preyashp2020@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <a href="tel:562-939-8100">562-939-8100</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-linkedin"></i>
+                            <a href="https://www.linkedin.com/in/preyash-patel-51804a237" target="_blank">linkedin.com/in/preyash-patel-51804a237</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-github"></i>
+                            <a href="https://github.com/preyashpatel7" target="_blank">github.com/preyashpatel7</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const lightToggle = document.getElementById('light-toggle');
+        const darkToggle = document.getElementById('dark-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Function to set theme
+        function setTheme(theme) {
+            htmlElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+        
+        // Add event listeners
+        lightToggle.addEventListener('click', () => setTheme('light'));
+        darkToggle.addEventListener('click', () => setTheme('dark'));
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
